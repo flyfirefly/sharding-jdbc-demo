@@ -1,6 +1,6 @@
 package com.yqyan.demo.sharding;
 
-import com.yqyan.demo.sharding.ds.CustomRWSplitDataSource;
+import com.yqyan.demo.sharding.ds.RWSplitDataSource;
 import com.yqyan.demo.sharding.model.Order;
 import org.junit.Test;
 
@@ -53,6 +53,6 @@ public class TestRWSplitDataSource extends SqlExecutor{
 
     @Override
     protected DataSource getDataSource() {
-        return CustomRWSplitDataSource.getDataSource();
+        return RWSplitDataSource.getDataSource();
     }
 }

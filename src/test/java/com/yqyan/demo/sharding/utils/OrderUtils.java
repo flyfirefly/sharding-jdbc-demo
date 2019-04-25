@@ -21,7 +21,7 @@ public class OrderUtils {
     public static final String DELETE_ALL_ORDERS_SQL = "delete from t_order";
     public static final String SELECT_ALL_ORDERS_SQL = "select * from t_order order by user_id, order_id";
     public static final String UPDATE_ORDER_SQL =  "update t_order set status = 1 where order_id = 3";
-    public static final String INSERT_ORDER_PATTERN_SQL =  "insert into t_order (order_id, user_id, cost, status) values (%d, %d, %f, %d)";
+    public static final String INSERT_ORDER_PATTERN_SQL =  "insert into t_order (user_id, cost, status) values (%d, %f, %d)";
 
 
     public static Order extractOrder(ResultSet rs){
@@ -43,7 +43,7 @@ public class OrderUtils {
 
     public static Order newOrder(){
         Order order = new Order();
-        order.setOrderId(nextOrderId());
+//        order.setOrderId(nextOrderId());
         order.setUserId(nextUserId());
         order.setCost(random.nextDouble() * 100);
         order.setStatus(0);

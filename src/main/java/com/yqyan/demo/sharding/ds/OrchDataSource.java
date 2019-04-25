@@ -3,7 +3,9 @@ package com.yqyan.demo.sharding.ds;
 import io.shardingsphere.api.config.ShardingRuleConfiguration;
 import io.shardingsphere.api.config.TableRuleConfiguration;
 import io.shardingsphere.api.config.strategy.InlineShardingStrategyConfiguration;
-import io.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
+import io.shardingsphere.orchestration.config.OrchestrationConfiguration;
+import io.shardingsphere.orchestration.reg.api.RegistryCenterConfiguration;
+import io.shardingsphere.shardingjdbc.orchestration.api.OrchestrationShardingDataSourceFactory;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -15,17 +17,19 @@ import java.util.concurrent.ConcurrentHashMap;
 import static com.yqyan.demo.sharding.ds.DataSourceUtils.newDataSource;
 
 /**
- * 数据分片Sharding数据源
+ *
+ * 数据治理数据源，从注册中心创建数据源
  * @Author yanyaqiang
- * @Date 2019/4/15 14:14
+ * @Date 2019/4/25 16:24
  **/
-public class CustomShardingDataSource {
+public class OrchDataSource {
 
     public static DataSource getDataSource(){
         return DataSourceHolder.dataSource;
     }
 
-    private static class DataSourceHolder{
+    private static class DataSourceHolder {
+
         private static DataSource dataSource;
 
         //数据分库名
@@ -53,13 +57,24 @@ public class CustomShardingDataSource {
             ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration();
             shardingRuleConfig.getTableRuleConfigs().add(tableRuleConfig);
 
+            // 配置注册中心
+            RegistryCenterConfiguration regConfig = new RegistryCenterConfiguration();
+            regConfig.setServerLists("localhost:2181");
+            regConfig.setNamespace("sharding-sphere-orchestration");
+
+            // 配置数据治理
+            OrchestrationConfiguration orchConfig = new OrchestrationConfiguration("orchestration-sharding-data-source", regConfig, false);
+
+            // 获取数据源对象
             try {
-                dataSource = ShardingDataSourceFactory.createDataSource(dataSourceMap, shardingRuleConfig, new ConcurrentHashMap<>(), new Properties());
+                dataSource = OrchestrationShardingDataSourceFactory.createDataSource(dataSourceMap, shardingRuleConfig, new ConcurrentHashMap(), new Properties(), orchConfig);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
 
+        }
     }
+
+
 
 }

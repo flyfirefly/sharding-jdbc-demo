@@ -1,6 +1,6 @@
 package com.yqyan.demo.sharding;
 
-import com.yqyan.demo.sharding.ds.CustomShardingDataSource;
+import com.yqyan.demo.sharding.ds.ShardingDataSource;
 import com.yqyan.demo.sharding.model.Order;
 import org.junit.Test;
 
@@ -44,11 +44,11 @@ public class TestShardingDataSource extends SqlExecutor{
 
     @Override
     protected DataSource getDataSource() {
-        return CustomShardingDataSource.getDataSource();
+        return ShardingDataSource.getDataSource();
     }
 
     private void insertOrder(Order order){
-        String sql = String.format(INSERT_ORDER_PATTERN_SQL, order.getOrderId(), order.getUserId(),
+        String sql = String.format(INSERT_ORDER_PATTERN_SQL, order.getUserId(),
                 order.getCost(), order.getStatus());
         execute(stmt -> stmt.execute(sql));
     }

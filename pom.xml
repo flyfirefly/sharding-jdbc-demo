@@ -34,17 +34,23 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- 不使用 spring boot -->
-        <dependency>
-            <groupId>io.shardingsphere</groupId>
-            <artifactId>sharding-jdbc-core</artifactId>
-            <version>${sharding-sphere.version}</version>
-        </dependency>
-
         <!-- 使用 spring boot 依赖 -->
         <dependency>
             <groupId>io.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+            <version>${sharding-sphere.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-orchestration</artifactId>
+            <version>${sharding-sphere.version}</version>
+        </dependency>
+
+        <!--若使用zookeeper, 请加入下面Maven坐标-->
+        <dependency>
+            <groupId>io.shardingsphere</groupId>
+            <artifactId>sharding-orchestration-reg-zookeeper-curator</artifactId>
             <version>${sharding-sphere.version}</version>
         </dependency>
 
@@ -60,7 +66,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
         </dependency>
-
 
     </dependencies>
 

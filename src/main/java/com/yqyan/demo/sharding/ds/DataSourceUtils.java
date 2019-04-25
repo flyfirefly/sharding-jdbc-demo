@@ -12,7 +12,7 @@ public class DataSourceUtils {
     // mysql 配置信息
     private static final String MYSQL_JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "yyq";
+    private static final String PASSWORD = "root";
     private static final String LOCAL_JDBC_URL = "jdbc:mysql://localhost:3306/";
 
     public static DataSource newDataSource(String dbname){

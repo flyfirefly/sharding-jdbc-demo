@@ -17,7 +17,7 @@ import static com.yqyan.demo.sharding.ds.DataSourceUtils.newDataSource;
  * @Author yanyaqiang
  * @Date 2019/4/15 17:17
  **/
-public class CustomRWSplitDataSource {
+public class RWSplitDataSource {
 
     public static DataSource getDataSource(){
         return DataSourceHolder.dataSource;
